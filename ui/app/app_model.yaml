@@ -1,0 +1,564 @@
+about:
+  date: October 11, 2024 15:15:07
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Appointment:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: customer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: appointment_date
+      required: true
+      template: date
+      type: DATETIME
+    - name: notes
+      template: text
+      type: VARCHAR
+    description: Service appointment scheduling for customers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Service appointment scheduling for customers.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Appointment
+  ContactLog:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: customer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: contact_date
+      template: date
+      type: DATETIME
+    - name: summary
+      template: text
+      type: VARCHAR
+    description: Logs of communications with customers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Logs of communications with customers.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: ContactLog
+  Customer:
+    columns:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: last_name
+      required: true
+      template: text
+      type: VARCHAR
+    - name: email
+      template: text
+      type: VARCHAR
+    - name: phone_number
+      template: text
+      type: VARCHAR
+    - name: address
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Table storing customer data.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: first_name
+    home_template: home_template.html
+    info_list: Table storing customer data.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - customer_id
+      name: AppointmentList
+      resource: Appointment
+    - direction: tomany
+      fks:
+      - customer_id
+      name: ContactLogList
+      resource: ContactLog
+    - direction: tomany
+      fks:
+      - customer_id
+      name: LoanList
+      resource: Loan
+    - direction: tomany
+      fks:
+      - customer_id
+      name: SaleList
+      resource: Sale
+    - direction: tomany
+      fks:
+      - customer_id
+      name: TestDriveList
+      resource: TestDrive
+    type: Customer
+  Employee:
+    columns:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: last_name
+      required: true
+      template: text
+      type: VARCHAR
+    - name: position
+      required: true
+      template: text
+      type: VARCHAR
+    - name: salary
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Employee records within the dealership.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: first_name
+    home_template: home_template.html
+    info_list: Employee records within the dealership.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: Employee
+  Insurance:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: provider
+      required: true
+      template: text
+      type: VARCHAR
+    - name: policy_number
+      required: true
+      template: text
+      type: VARCHAR
+    - name: expiration_date
+      required: true
+      template: date
+      type: DATETIME
+    description: Insurance coverage records for vehicles.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Insurance coverage records for vehicles.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Insurance
+  Loan:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: customer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: amount
+      required: true
+      template: real
+      type: FLOAT
+    - name: interest_rate
+      required: true
+      template: real
+      type: FLOAT
+    - name: term_months
+      required: true
+      template: integer
+      type: INTEGER
+    description: Loan agreements for financing vehicle purchases.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Loan agreements for financing vehicle purchases.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: Loan
+  Part:
+    columns:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: description
+      template: text
+      type: VARCHAR
+    - name: price
+      required: true
+      template: real
+      type: FLOAT
+    - name: quantity_in_stock
+      required: true
+      template: integer
+      type: INTEGER
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Parts inventory with descriptions and quantities.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: name
+    home_template: home_template.html
+    info_list: Parts inventory with descriptions and quantities.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: Part
+  Sale:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: customer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: sale_date
+      template: date
+      type: DATETIME
+    - name: sale_price
+      required: true
+      template: real
+      type: FLOAT
+    description: Record of sales transactions.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Record of sales transactions.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Sale
+  Service:
+    columns:
+    - label: ' description*'
+      name: description
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: service_date
+      template: date
+      type: DATETIME
+    - name: cost
+      template: real
+      type: FLOAT
+    - name: id
+      template: integer
+      type: INTEGER
+    description: Maintenance and service records for vehicles.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: description
+    home_template: home_template.html
+    info_list: Maintenance and service records for vehicles.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Service
+  TestDrive:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: customer_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: test_drive_date
+      template: date
+      type: DATETIME
+    - name: feedback
+      template: text
+      type: VARCHAR
+    description: Records of vehicle test drives by customers.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Records of vehicle test drives by customers.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: TestDrive
+  Vehicle:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: make
+      required: true
+      template: text
+      type: VARCHAR
+    - name: model
+      required: true
+      template: text
+      type: VARCHAR
+    - name: year
+      required: true
+      template: integer
+      type: INTEGER
+    - name: price
+      required: true
+      template: real
+      type: FLOAT
+    - name: vin_number
+      template: text
+      type: VARCHAR
+    description: Vehicle inventory with model, make, and specs.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Vehicle inventory with model, make, and specs.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: AppointmentList
+      resource: Appointment
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: InsuranceList
+      resource: Insurance
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: SaleList
+      resource: Sale
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: ServiceList
+      resource: Service
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: TestDriveList
+      resource: TestDrive
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: WarrantyList
+      resource: Warranty
+    type: Vehicle
+  Warranty:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: vehicle_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: warranty_provider
+      required: true
+      template: text
+      type: VARCHAR
+    - name: warranty_period_months
+      required: true
+      template: integer
+      type: INTEGER
+    - name: start_date
+      template: date
+      type: DATETIME
+    description: Warranty details for sold vehicles.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: Warranty details for sold vehicles.
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Warranty
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

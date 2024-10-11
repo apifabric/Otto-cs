@@ -1,0 +1,114 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+
+Table Appointment {
+    id INTEGER [primary key]
+    customer_id INTEGER 
+    vehicle_id INTEGER 
+    appointment_date DATETIME 
+    notes VARCHAR 
+    }
+
+Table Customer {
+    id INTEGER [primary key]
+    first_name VARCHAR 
+    last_name VARCHAR 
+    email VARCHAR 
+    phone_number VARCHAR 
+    address VARCHAR 
+    }
+
+Table Vehicle {
+    id INTEGER [primary key]
+    make VARCHAR 
+    model VARCHAR 
+    year INTEGER 
+    price FLOAT 
+    vin_number VARCHAR 
+    }
+
+Table ContactLog {
+    id INTEGER [primary key]
+    customer_id INTEGER 
+    contact_date DATETIME 
+    summary VARCHAR 
+    }
+
+Table Employee {
+    id INTEGER [primary key]
+    first_name VARCHAR 
+    last_name VARCHAR 
+    position VARCHAR 
+    salary FLOAT 
+    }
+
+Table Insurance {
+    id INTEGER [primary key]
+    vehicle_id INTEGER 
+    provider VARCHAR 
+    policy_number VARCHAR 
+    expiration_date DATETIME 
+    }
+
+Table Loan {
+    id INTEGER [primary key]
+    customer_id INTEGER 
+    amount FLOAT 
+    interest_rate FLOAT 
+    term_months INTEGER 
+    }
+
+Table Part {
+    id INTEGER [primary key]
+    name VARCHAR 
+    description VARCHAR 
+    price FLOAT 
+    quantity_in_stock INTEGER 
+    }
+
+Table Sale {
+    id INTEGER [primary key]
+    vehicle_id INTEGER 
+    customer_id INTEGER 
+    sale_date DATETIME 
+    sale_price FLOAT 
+    }
+
+Table Service {
+    id INTEGER [primary key]
+    vehicle_id INTEGER 
+    description VARCHAR 
+    service_date DATETIME 
+    cost FLOAT 
+    }
+
+Table TestDrive {
+    id INTEGER [primary key]
+    customer_id INTEGER 
+    vehicle_id INTEGER 
+    test_drive_date DATETIME 
+    feedback VARCHAR 
+    }
+
+Table Warranty {
+    id INTEGER [primary key]
+    vehicle_id INTEGER 
+    warranty_provider VARCHAR 
+    warranty_period_months INTEGER 
+    start_date DATETIME 
+    }
+
+
+
+// Relationships
+    Ref: Appointment.(customer_id) < Customer.(id)
+    Ref: Appointment.(vehicle_id) < Vehicle.(id)
+    Ref: ContactLog.(customer_id) < Customer.(id)
+    Ref: Insurance.(vehicle_id) < Vehicle.(id)
+    Ref: Loan.(customer_id) < Customer.(id)
+    Ref: Sale.(customer_id) < Customer.(id)
+    Ref: Sale.(vehicle_id) < Vehicle.(id)
+    Ref: Service.(vehicle_id) < Vehicle.(id)
+    Ref: TestDrive.(customer_id) < Customer.(id)
+    Ref: TestDrive.(vehicle_id) < Vehicle.(id)
+    Ref: Warranty.(vehicle_id) < Vehicle.(id)

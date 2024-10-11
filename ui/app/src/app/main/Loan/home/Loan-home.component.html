@@ -1,0 +1,46 @@
+<o-form-layout-manager attr="Loan" mode="tab" title="LOAN">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="LoanTable" 
+            service="Loan" 
+            entity="Loan" 
+            title="LOAN"
+            keys="id"
+            columns="id;customer_id;amount;interest_rate;term_months" 
+            header-actions="R;D"
+            visible-columns="id;customer_id;amount;interest_rate;term_months"  
+            sort-columns="id" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column attr="customer_id" title="customer_id">
+    <o-table-cell-renderer-service attr="customer_id" 
+        service="Customer" entity="CustomerType" columns="id;first_name"
+        parent-keys="id:customer_id"
+        value-column="first_name" keys="customer_id"
+        visible-columns="first_name" separator=" - " width="680px">
+    </o-table-cell-renderer-service>
+</o-table-column>
+            
+            <o-table-column #amount attr="amount" title="amount" type="currency" editable="no" required="yes" currency-symbol="$" currency-symbol-position="left" thousand-separator=","decimal-separator="."></o-table-column>
+            
+            <o-table-column #interest_rate attr="interest_rate" title="interest_rate" type="real" min-decimal-digits="2" max-decimal-digits="4" min="0" max="1000000.0000" content-align="center"></o-table-column>
+            
+            <o-table-column #term_months attr="term_months" title="term_months" type="integer" editable="no" required="yes" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form-layout-manager>

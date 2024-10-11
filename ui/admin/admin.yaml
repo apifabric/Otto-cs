@@ -1,0 +1,364 @@
+about:
+  date: October 11, 2024 15:15:07
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 11
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  Appointment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: vehicle_id
+      required: true
+    - name: appointment_date
+      required: true
+    - name: notes
+    description: Service appointment scheduling for customers.
+    info_list: Service appointment scheduling for customers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Appointment
+    user_key: id
+  ContactLog:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: contact_date
+    - name: summary
+    description: Logs of communications with customers.
+    info_list: Logs of communications with customers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: ContactLog
+    user_key: id
+  Customer:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: last_name
+      required: true
+    - name: email
+    - name: phone_number
+    - name: address
+    - name: id
+    description: Table storing customer data.
+    info_list: Table storing customer data.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - customer_id
+      name: AppointmentList
+      resource: Appointment
+    - direction: tomany
+      fks:
+      - customer_id
+      name: ContactLogList
+      resource: ContactLog
+    - direction: tomany
+      fks:
+      - customer_id
+      name: LoanList
+      resource: Loan
+    - direction: tomany
+      fks:
+      - customer_id
+      name: SaleList
+      resource: Sale
+    - direction: tomany
+      fks:
+      - customer_id
+      name: TestDriveList
+      resource: TestDrive
+    type: Customer
+    user_key: first_name
+  Employee:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: last_name
+      required: true
+    - name: position
+      required: true
+    - name: salary
+    - name: id
+    description: Employee records within the dealership.
+    info_list: Employee records within the dealership.
+    type: Employee
+    user_key: first_name
+  Insurance:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: vehicle_id
+      required: true
+    - name: provider
+      required: true
+    - name: policy_number
+      required: true
+    - name: expiration_date
+      required: true
+    description: Insurance coverage records for vehicles.
+    info_list: Insurance coverage records for vehicles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Insurance
+    user_key: id
+  Loan:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: amount
+      required: true
+    - name: interest_rate
+      required: true
+    - name: term_months
+      required: true
+    description: Loan agreements for financing vehicle purchases.
+    info_list: Loan agreements for financing vehicle purchases.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    type: Loan
+    user_key: id
+  Part:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: description
+    - name: price
+      required: true
+    - name: quantity_in_stock
+      required: true
+    - name: id
+    description: Parts inventory with descriptions and quantities.
+    info_list: Parts inventory with descriptions and quantities.
+    type: Part
+    user_key: name
+  Sale:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: vehicle_id
+      required: true
+    - name: sale_date
+    - name: sale_price
+      required: true
+    description: Record of sales transactions.
+    info_list: Record of sales transactions.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Sale
+    user_key: id
+  Service:
+    attributes:
+    - label: ' description*'
+      name: description
+      required: true
+      search: true
+      sort: true
+    - name: vehicle_id
+      required: true
+    - name: service_date
+    - name: cost
+    - name: id
+    description: Maintenance and service records for vehicles.
+    info_list: Maintenance and service records for vehicles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Service
+    user_key: description
+  TestDrive:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: customer_id
+      required: true
+    - name: vehicle_id
+      required: true
+    - name: test_drive_date
+    - name: feedback
+    description: Records of vehicle test drives by customers.
+    info_list: Records of vehicle test drives by customers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - customer_id
+      name: customer
+      resource: Customer
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: TestDrive
+    user_key: id
+  Vehicle:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: make
+      required: true
+    - name: model
+      required: true
+    - name: year
+      required: true
+    - name: price
+      required: true
+    - name: vin_number
+    description: Vehicle inventory with model, make, and specs.
+    info_list: Vehicle inventory with model, make, and specs.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: AppointmentList
+      resource: Appointment
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: InsuranceList
+      resource: Insurance
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: SaleList
+      resource: Sale
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: ServiceList
+      resource: Service
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: TestDriveList
+      resource: TestDrive
+    - direction: tomany
+      fks:
+      - vehicle_id
+      name: WarrantyList
+      resource: Warranty
+    type: Vehicle
+    user_key: id
+  Warranty:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: vehicle_id
+      required: true
+    - name: warranty_provider
+      required: true
+    - name: warranty_period_months
+      required: true
+    - name: start_date
+    description: Warranty details for sold vehicles.
+    info_list: Warranty details for sold vehicles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - vehicle_id
+      name: vehicle
+      resource: Vehicle
+    type: Warranty
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
